@@ -4,45 +4,37 @@ public class BinarySearch {
 
 
 
-// Recursive implementation of binary search algorithm
 
+   // Prints the target
     public static void main(String[] args) {
-        int[] A = {10, 11, 18, 30, 42, 63};
-        int x = 30;
-
-        int low = 0;
-        int high = A.length - 1;
-        int index = binarySearch(A, low, high, x);
-
-        if (index != -1) {
-            System.out.println("Element found at index " + index);
-        } else {
-            System.out.println("Element not found in the array");
-        }
-
-
-
-
-
+        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        System.out.println(binarySearch(arr, 7));
     }
 
-    // The output is found at index 3
-    static int binarySearch(int[] A, int low, int high, int x)
-    {
-
-        if (low > high) {
+    // We know  binarySearch(int[] arr, int target) takes an integer array arr and an integer target as input
+    //function returns the index of the target in the arr if it exists, otherwise it returns -1.
+    //function binarySearch(int[] arr, int left, int right, int target) is a helper function that performs the binary search recursively.
+    // your left is your low and right is your high
+    //If left is greater than right, the function returns -1, indicating that the target is not in the arr
+    //If middle element of arr equal to target return index of middle element,
+    // If middle element of arr less then target it recursively searches right half.
+    //If middle element of arr greater than target it recursively searches the left half
+    public static int binarySearch(int[] arr, int target) {
+        return binarySearch(arr, 0, arr.length - 1, target);
+    }
+    public static int binarySearch(int[] arr, int left, int right, int target) {
+        if (left > right) {
             return -1;
         }
-        int mid = (low + high) / 2;
-        if (x == A[mid]) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) {
             return mid;
         }
-        else if (x < A[mid]) {
-            return binarySearch(A, low,  mid - 1, x);
+        if (arr[mid] < target) {
+            return binarySearch(arr, mid + 1, right, target);
         }
-        else {
-            return binarySearch(A, mid + 1,  high, x);
-        }
-
+        return binarySearch(arr, left, mid - 1, target);
     }
+
+
 }
